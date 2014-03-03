@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/graphics">
+        <file>img/ocean.png</file>
+        <file>img/map.png</file>
+        <file>img/greenmarker.png</file>
+        <file>img/googlemarker.png</file>
+        <file>img/greenmap.png</file>
+    </qresource>
+</RCC>
