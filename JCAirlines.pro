@@ -17,16 +17,21 @@ SOURCES += main.cpp\
     admindialog.cpp \
     graphicarea.cpp \
     figure.cpp \
-    pointfigure.cpp
+    pointfigure.cpp \
+    newairportdialog.cpp
 
 HEADERS  += mwindow.h \
     admindialog.h \
     graphicarea.h \
     figure.h \
-    pointfigure.h
+    pointfigure.h \
+    airport.h \
+    ../GrafoTarea/grafo.h \
+    newairportdialog.h
 
 FORMS    += mwindow.ui \
-    admindialog.ui
+    admindialog.ui \
+    newairportdialog.ui
 
 RESOURCES += \
     resources.qrc

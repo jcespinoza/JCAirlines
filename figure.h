@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QPainter>
 #include <QDebug>
+#include <math.h>
 
 class Figure: public QObject
 {

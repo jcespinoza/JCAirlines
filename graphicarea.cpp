@@ -6,22 +6,43 @@ GraphicArea::GraphicArea(QWidget *parent) :
 
 }
 
+PointFigure *GraphicArea::getClosest(QPoint p1)
+{
+    double distance = -1;
+    for(int i = 0; i < figures.count(); i++){
+        PointFigure* temp = (PointFigure*)(figures.at(i));
+        distance = PointFigure::distance(p1, QPoint(temp->x()+16,temp->y()+32) );
+        if(distance < 16)
+            return temp;
+    }
+    return 0;
+}
+
 void GraphicArea::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
-    QPixmap whiteBG(":/graphics/img/ocean.png");
-    painter.drawTiledPixmap(geometry(),whiteBG);
-    //Painted the bluocean
+    QPixmap ocean(":/graphics/img/ocean.png");
+    painter.drawTiledPixmap(geometry(),ocean);
+
     QPixmap map(":/graphics/img/greenmap.png");
     painter.drawPixmap(geometry(),map);
     for(int i = 0; i < figures.length(); i++)
         figures.at(i)->draw(&painter);
 }
 
-void GraphicArea::mouseDoubleClickEvent(QMouseEvent *e)
+void GraphicArea::mousePressEvent(QMouseEvent *e)
+{
+    PointFigure* closest = getClosest(e->pos());
+    if(closest != 0)
+        emit clickedExisting(QPoint( closest->x(), closest->y() ));
+    else
+        emit clickedEmpty(e->pos());
+}
+
+void GraphicArea::createPoint(QPoint p)
 {
     PointFigure *point = new PointFigure();
-    point->setGeometry(QRect(e->pos().x()-16,e->pos().y()-32, 32, 32));
+    point->setGeometry(QRect(p.x()-16,p.y()-32, 32, 32));
     figures.append(point);
     update();
 }

@@ -7,19 +7,25 @@
 #include <QDebug>
 #include "pointfigure.h"
 
+
 class GraphicArea : public QWidget
 {
     Q_OBJECT
 public:
     explicit GraphicArea(QWidget *parent = 0);
+    PointFigure* getClosest(QPoint);
 
 signals:
+    void doubleClicked(QPoint);
+    void clickedEmpty(QPoint);
+    void clickedExisting(QPoint);
 
 public slots:
+    void createPoint(QPoint);
 
 protected:
     void paintEvent(QPaintEvent*);
-    void mouseDoubleClickEvent(QMouseEvent*);
+    void mousePressEvent(QMouseEvent*);
     QList<Figure*> figures;
 };
 
