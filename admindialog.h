@@ -4,7 +4,7 @@
 #include <QDialog>
 #include "graphicarea.h"
 #include "airport.h"
-#include "../GrafoTarea/grafo.h"
+#include "../GrafoTest/Grafo.h"
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
@@ -25,7 +25,7 @@ private:
     void initializeGraphics();
     GraphicArea *gArea;
     void doConnects();
-    Grafo<Airport>* airports;
+    Graph<Airport>* airports;
     Airport getFromPoint(QPoint);
 signals:
     void pointApproved(QPoint);

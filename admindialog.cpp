@@ -8,7 +8,7 @@ AdminDialog::AdminDialog(QWidget *parent) :
     ui(new Ui::AdminDialog)
 {
     ui->setupUi(this);
-    airports = new Grafo<Airport>();
+    airports = new Graph<Airport>();
     gArea = new GraphicArea(this);
     gArea->setGeometry(ui->gridWidget->geometry());
     doConnects();
@@ -35,7 +35,10 @@ Airport AdminDialog::getFromPoint(QPoint p)
 {
     Airport result;
     result.setLocation(p);
-    result = airports->getByIndex(airports->getIndex(result));
+
+    Vertex<Airport>* t = airports->getVertex(airports->indexOfVertex(result));
+    if( t )
+        result = t->data;
 
     return result;
 }
@@ -51,7 +54,7 @@ void AdminDialog::requestInfo(QPoint p)
     newOne.setLocation(p);
     qDebug() << "Creating Airport:" << newOne.getCity() << newOne.getCode() << newOne.getLocation();
 
-    airports->agregarVertice(newOne);
+    airports->addVertex(newOne);
     emit pointApproved(p);
 }
 
