@@ -28,25 +28,30 @@ void AdminDialog::doConnects()
 {
     connect(gArea, SIGNAL(clickedEmpty(QPoint)), this, SLOT(requestInfo(QPoint)));
     connect(this, SIGNAL(pointApproved(QPoint)), gArea, SLOT(createPoint(QPoint)));
+    connect(gArea, SIGNAL(clickedExisting(QPoint)), this, SLOT(showConnection(QPoint)));
 }
 
-Airport AdminDialog::getFromPoint(QPoint)
+Airport AdminDialog::getFromPoint(QPoint p)
 {
     Airport result;
+    result.setLocation(p);
+    result = airports->getByIndex(airports->getIndex(result));
+
+    return result;
 }
 
 void AdminDialog::requestInfo(QPoint p)
 {
     NewAirportDialog dialog(this);
-
     if(dialog.exec() != QDialog::Accepted)
         return;
     Airport newOne;
-    newOne.setCode(code);
+    newOne.setCode(dialog.getCode());
+    newOne.setCity(dialog.getCity());
     newOne.setLocation(p);
-    Vertice<Airport>* vert = new Vertice<Airport>();
-    vert->valor = newOne;
-    airports->agregarVertice(vert);
+    qDebug() << "Creating Airport:" << newOne.getCity() << newOne.getCode() << newOne.getLocation();
+
+    airports->agregarVertice(newOne);
     emit pointApproved(p);
 }
 
@@ -55,7 +60,8 @@ void AdminDialog::requestInfo(QPoint p)
 void AdminDialog::showConnection(QPoint p)
 {
     ui->originCbo->clear();
-    ui->originCbo->addItem(getFromPoint(p)).;
+    QString s(getFromPoint(p).code);
+    ui->originCbo->addItem(s);
 }
 
 void AdminDialog::saveFileToXML()

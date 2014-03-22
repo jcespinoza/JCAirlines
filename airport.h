@@ -7,18 +7,21 @@ class Airport
 {
 public:
     QString code;
-    QString City;
+    QString city;
     QPoint location;
 
     void setCode(QString st){code = st;}
-    QString getCode(){return code;}
+    QString getCode()const {return code;}
 
     void setCity(QString st){city = st;}
-    QString getCity(){return city;}
+    QString getCity() const {return city;}
 
     void setLocation(QPoint p){location = p;}
-    QPoint getLocation(){return location;}
+    QPoint getLocation() const {return location;}
 
+    bool operator ==(const Airport &other){
+        return (*this).getLocation() == other.getLocation();
+    }
 };
 
 #endif // AIRPORT_H

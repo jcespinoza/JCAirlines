@@ -76,6 +76,11 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>leCode</tabstop>
+  <tabstop>leCity</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

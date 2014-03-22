@@ -27,7 +27,8 @@ HEADERS  += mwindow.h \
     pointfigure.h \
     airport.h \
     ../GrafoTarea/grafo.h \
-    newairportdialog.h
+    newairportdialog.h \
+    ../GrafoTarea/grafo.h
 
 FORMS    += mwindow.ui \
     admindialog.ui \

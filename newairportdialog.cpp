@@ -8,6 +8,7 @@ NewAirportDialog::NewAirportDialog(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->leCode, SIGNAL(textChanged(QString)), this, SLOT(setCode(QString)));
     connect(ui->leCity, SIGNAL(textChanged(QString)), this, SLOT(setCity(QString)));
+    ui->leCode->setFocus();
 }
 
 NewAirportDialog::~NewAirportDialog()

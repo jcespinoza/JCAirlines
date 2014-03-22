@@ -14,6 +14,9 @@ class NewAirportDialog : public QDialog
 public:
     explicit NewAirportDialog(QWidget *parent = 0);
     ~NewAirportDialog();
+    QString getCity(){return city;}
+    QString getCode(){return code;}
+
 public slots:
     void setCode(QString co){code = co;}
     void setCity(QString ci){city = ci;}
@@ -21,7 +24,7 @@ public slots:
 private:
     Ui::NewAirportDialog *ui;
     QString code;
-    QString City;
+    QString city;
 };
 
 #endif // NEWAIRPORTDIALOG_H
