@@ -23,7 +23,7 @@ public:
         hi = t.height();
     }
 
-    static const double distance(QPoint,QPoint);
+    static double distance(QPoint,QPoint);
 
 protected:
     int xi;

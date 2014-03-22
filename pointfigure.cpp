@@ -11,7 +11,7 @@ void PointFigure::draw(QPainter *painter)
     painter->drawPixmap(x(), y(), width(), height(), image);
 }
 
-const double PointFigure::distance(QPoint p1, QPoint p2)
+double PointFigure::distance(QPoint p1, QPoint p2)
 {
     int x1 = p1.x();
     int y1 = p1.y();
