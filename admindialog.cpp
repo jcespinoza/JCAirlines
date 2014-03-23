@@ -1,4 +1,5 @@
 #include "admindialog.h"
+#include <QtXml>
 #include <QInputDialog>
 #include "ui_admindialog.h"
 #include "newairportdialog.h"
@@ -8,10 +9,12 @@ AdminDialog::AdminDialog(QWidget *parent) :
     ui(new Ui::AdminDialog)
 {
     ui->setupUi(this);
+    xmlPath = "../Airline.xml";
     airports = new Graph<Airport>();
     gArea = new GraphicArea(this);
     gArea->setGeometry(ui->gridWidget->geometry());
     doConnects();
+    loadFromXML();
 }
 
 AdminDialog::~AdminDialog()
@@ -29,6 +32,7 @@ void AdminDialog::doConnects()
     connect(gArea, SIGNAL(clickedEmpty(QPoint)), this, SLOT(requestInfo(QPoint)));
     connect(this, SIGNAL(pointApproved(QPoint)), gArea, SLOT(createPoint(QPoint)));
     connect(gArea, SIGNAL(clickedExisting(QPoint)), this, SLOT(showConnection(QPoint)));
+    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(saveFileToXML()));
 }
 
 Airport AdminDialog::getFromPoint(QPoint p)
@@ -75,5 +79,61 @@ void AdminDialog::showConnection(QPoint p)
 
 void AdminDialog::saveFileToXML()
 {
+    QDomDocument document;
+    QDomProcessingInstruction xmlHeader = document.createProcessingInstruction("xml","version=\"1.0\"");
+    document.appendChild(xmlHeader);
+    QDomElement airportsList = document.createElement("Airports");
 
+    document.appendChild(airportsList);
+
+    ListPointerT<Airport> list = airports->getAllVertices();
+    for(int i = 0; i < list.getCount(); i++){
+        Airport a = list.get(i);
+        QDomElement airport = document.createElement("Airport");
+        airport.setAttribute("X", a.getLocation().x());
+        airport.setAttribute("Y", a.getLocation().y());
+        airport.setAttribute("Code", a.getCode());
+        airport.setAttribute("City", a.getCity());
+        airportsList.appendChild(airport);
+    }
+
+    qDebug() << document.toString();
+
+    QFile file(xmlPath);
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        qDebug() << "Something went wrong while opening the file";
+    else{
+        QTextStream stream(&file);
+        stream << document.toString();
+        file.close();
+    }
+}
+
+void AdminDialog::loadFromXML()
+{
+    QDomDocument document;
+    QFile file(xmlPath);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        qDebug() << "Failed to Read the file";
+        return;
+    }else{
+        if(!document.setContent(&file))
+            qDebug() << "Failed to load the document";
+        file.close();
+    }
+
+    QDomElement root = document.firstChildElement();
+    QDomNodeList airs = root.elementsByTagName("Airport");
+    for(int i = 0; i < airs.count(); i++){
+        QDomNode node = airs.at(i);
+        if(node.isElement()){
+            QDomElement elem = node.toElement();
+            Airport newOne;
+            newOne.setCode(elem.attribute("Code", "AIR00"));
+            newOne.setCity(elem.attribute("City", "City"));
+            newOne.setLocation(QPoint(elem.attribute("X", 0).toInt(), elem.attribute("Y", 0).toInt()));
+            airports->addVertex(newOne);
+            gArea->createPoint(newOne.getLocation());
+        }
+    }
 }
