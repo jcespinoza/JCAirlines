@@ -26,28 +26,15 @@ public:
         return point() == p || QPoint(xi+16,yi+32) == p;
     }
 
+    FigureType figureType(){
+        return POINT;
+    }
+
     void setGeometry(QRect t){
         xi = t.x();
         yi = t.y();
         wi = t.width();
         hi = t.height();
-    }
-
-    static double distance(QPoint p1, QPoint p2){
-        int x1 = p1.x();
-        int y1 = p1.y();
-        int x2 = p2.x();
-        int y2 = p2.y();
-
-        int dx = x2 - x1;
-        int dy = y2 - y1;
-
-        int dx2 = pow(dx, 2);
-        int dy2 = pow(dy, 2);
-
-        int distance = sqrt(dx2+dy2);
-
-        return distance;
     }
 
 protected:

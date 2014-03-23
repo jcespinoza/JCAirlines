@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 #include <QDebug>
 #include "pointfigure.h"
+#include "linefigure.h"
 
 
 class GraphicArea : public QWidget
@@ -24,6 +25,7 @@ signals:
 public slots:
     void createPoint(QPoint);
     void deleteGraphicsInvolved(QPoint p);
+    void createLine(QPoint,QPoint);
 
 protected:
     void paintEvent(QPaintEvent*);

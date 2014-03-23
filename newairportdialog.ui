@@ -38,6 +38,9 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="inputMask">
+    <string/>
+   </property>
   </widget>
   <widget class="QLineEdit" name="leCity">
    <property name="geometry">

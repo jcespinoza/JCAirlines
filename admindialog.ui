@@ -60,10 +60,16 @@
     </rect>
    </property>
    <property name="inputMask">
-    <string>NNNN</string>
+    <string/>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="maxLength">
+    <number>327</number>
+   </property>
+   <property name="placeholderText">
+    <string>Precio</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">

@@ -2,11 +2,12 @@
 #define LINEFIGURE_H
 
 #include "figure.h"
+#include <QDebug>
 
 class LineFigure: public Figure
 {
 public:
-    LineFigure();
+    LineFigure(){}
     int x(){return xi;}
     int y(){return yi;}
     QPoint start(){return QPoint(xi,yi);}
@@ -15,8 +16,8 @@ public:
     QPoint end(){return QPoint(dx,dy);}
     int width(){return wi;}
     int height(){return hi;}
-    void setX(int val){xi = val;}
-    void setY(int val){yi = val;}
+    void setStartX(int val){xi = val;}
+    void setStartY(int val){yi = val;}
     void setEndX(int val){dx = val;}
     void setEndY(int val){dy = val;}
     void setWidth(int val){wi = val;}
@@ -28,16 +29,32 @@ public:
         wi = t.width();
         hi = t.height();
     }
-    void draw(QPainter *p){
+    void draw(QPainter *painter){
         QPainterPath path;
-        path.moveTo(start());
-        path.quadTo(start(), end());
+        //path.moveTo(start());
+        path.quadTo(start(), end()+QPoint(2,2));
 
-        p->drawPath(path);
+        QPen pen(Qt::blue);
+        pen.setWidth(3);
+        pen.setCapStyle(Qt::RoundCap);
+        painter->setPen(pen);
+        painter->drawPath(path);
     }
 
     bool isRelated(QPoint p){
         return start() == p || end() == p;
+    }
+
+    bool isEnd(QPoint p){
+        return end() == p;
+    }
+
+    bool isStart(QPoint p){
+        return start() == p;
+    }
+
+    FigureType figureType(){
+        return LINE;
     }
 
 protected:

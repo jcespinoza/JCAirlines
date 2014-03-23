@@ -9,6 +9,8 @@ NewAirportDialog::NewAirportDialog(QWidget *parent) :
     connect(ui->leCode, SIGNAL(textChanged(QString)), this, SLOT(setCode(QString)));
     connect(ui->leCity, SIGNAL(textChanged(QString)), this, SLOT(setCity(QString)));
     ui->leCode->setFocus();
+
+    ui->leCode->setValidator(new QRegExpValidator(QRegExp("[A-Z]{2}\\d{2}"),this));
 }
 
 NewAirportDialog::~NewAirportDialog()

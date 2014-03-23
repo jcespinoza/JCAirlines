@@ -16,7 +16,6 @@ SOURCES += main.cpp\
         mwindow.cpp \
     admindialog.cpp \
     graphicarea.cpp \
-    figure.cpp \
     newairportdialog.cpp
 
 HEADERS  += mwindow.h \

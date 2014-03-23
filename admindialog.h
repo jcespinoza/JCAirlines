@@ -27,9 +27,11 @@ private:
     void doConnects();
     Graph<Airport>* airports;
     Airport getFromPoint(QPoint);
+    Airport getFromCode(QString);
     QString xmlPath;
 signals:
     void pointApproved(QPoint);
+    void addLine(QPoint,QPoint);
     void deleteApproved(QPoint);
 
 public slots:
@@ -38,6 +40,8 @@ public slots:
     void showConnection(QPoint);
     void saveFileToXML();
     void loadFromXML();
+private slots:
+    void on_pbStablish_clicked();
 };
 
 #endif // ADMINDIALOG_H
