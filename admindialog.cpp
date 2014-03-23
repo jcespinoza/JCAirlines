@@ -1,4 +1,5 @@
 #include "admindialog.h"
+#include <QMessageBox>
 #include <QtXml>
 #include <QInputDialog>
 #include "ui_admindialog.h"
@@ -57,6 +58,10 @@ void AdminDialog::requestInfo(QPoint p)
     newOne.setCity(dialog.getCity());
     newOne.setLocation(p);
     qDebug() << "Creating Airport:" << newOne.getCity() << newOne.getCode() << newOne.getLocation();
+    if(airports->vertexExists(newOne)){
+        QMessageBox::warning(this, "Error", "An airport with this information is already in the registry", QMessageBox::Ok);
+        return;
+    }
 
     airports->addVertex(newOne);
     airports->printVertexList();
@@ -69,12 +74,12 @@ void AdminDialog::showConnection(QPoint p)
     ui->destCbo->clear();
 
     Airport origin = getFromPoint(p);
-    QString s(origin.code);
+    QString s(origin.getCode());
     ListPointerT<Airport> allElse = airports->getAllBut(origin);
 
     ui->originCbo->addItem(s);
     for(int i = 0; i < allElse.getCount(); i++)
-        ui->destCbo->addItem(allElse.get(i).code);
+        ui->destCbo->addItem(allElse.get(i).getCode());
 }
 
 void AdminDialog::saveFileToXML()
