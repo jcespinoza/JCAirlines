@@ -31,8 +31,8 @@ public:
     }
     void draw(QPainter *painter){
         QPainterPath path;
-        //path.moveTo(start());
-        path.quadTo(start(), end()+QPoint(2,2));
+        path.moveTo(start());
+        path.cubicTo(start()+QPoint(5,5), start(), end());
 
         QPen pen(Qt::blue);
         pen.setWidth(3);

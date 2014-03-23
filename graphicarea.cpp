@@ -26,11 +26,8 @@ void GraphicArea::paintEvent(QPaintEvent *)
 
     QPixmap map(":/graphics/img/greenmap.png");
     painter.drawPixmap(geometry(),map);
-    for(int i = 0; i < figures.length(); i++){
+    for(int i = 0; i < figures.length(); i++)
         figures.at(i)->draw(&painter);
-        if(figures.at(i)->figureType() == Figure::LINE)
-            qDebug() << "Found a Line";
-    }
 }
 
 void GraphicArea::mousePressEvent(QMouseEvent *e)
@@ -64,7 +61,7 @@ void GraphicArea::createLine(QPoint st, QPoint en)
     line->setEndX(en.x());
     line->setEndY(en.y());
     line->setGeometry(QRect(line->start(),line->end()));
-    figures.append(line);
+    figures.prepend(line);
     update();
 }
 

@@ -202,20 +202,25 @@ void AdminDialog::loadFromXML()
             newOne.setLocation(QPoint(elem.attribute("X", 0).toInt(), elem.attribute("Y", 0).toInt()));
             airports->addVertex(newOne);
             gArea->createPoint(newOne.getLocation());
-            QDomNodeList cons = node.childNodes();
-            for(int k = 0; k < cons.count(); k++){
-                QDomNode nCon = cons.at(k);
-                if(nCon.isElement()){
-                    QDomElement elCon = nCon.toElement();
-                    Airport temp;
-                    temp.setCode(elCon.attribute("Destination", "AIR00"));
-                    double cost = elCon.attribute("Cost", "0.0").toDouble();
-                    airports->addConnection(newOne,temp,cost);
-                    bool ok;
-                    temp = airports->getVertexWith(temp, ok);
-                    if(ok)
-                        gArea->createLine(newOne.getLocation(), temp.getLocation());
-                }
+        }
+    }
+    for(int i = 0; i < airs.count(); i++){
+        QDomElement node = airs.at(i).toElement();
+        Airport newOne;
+        newOne.setLocation(QPoint(node.attribute("X",0).toInt(), node.attribute("Y",0).toInt()));
+        QDomNodeList cons = node.childNodes();
+        for(int k = 0; k < cons.count(); k++){
+            QDomNode nCon = cons.at(k);
+            if(nCon.isElement()){
+                QDomElement elCon = nCon.toElement();
+                Airport temp;
+                temp.setCode(elCon.attribute("Destination", "AIR00"));
+                double cost = elCon.attribute("Cost", "0.0").toDouble();
+                airports->addConnection(newOne,temp,cost);
+                bool ok;
+                temp = airports->getVertexWith(temp, ok);
+                if(ok)
+                    gArea->createLine(newOne.getLocation(), temp.getLocation());
             }
         }
     }
