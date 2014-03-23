@@ -36,7 +36,7 @@ Airport AdminDialog::getFromPoint(QPoint p)
     Airport result;
     result.setLocation(p);
 
-    Vertex<Airport>* t = airports->getVertex(airports->indexOfVertex(result));
+    Vertex<Airport>* t = airports->getVertex(result);
     if( t )
         result = t->data;
 
@@ -55,16 +55,22 @@ void AdminDialog::requestInfo(QPoint p)
     qDebug() << "Creating Airport:" << newOne.getCity() << newOne.getCode() << newOne.getLocation();
 
     airports->addVertex(newOne);
+    airports->printVertexList();
     emit pointApproved(p);
 }
-
-
 
 void AdminDialog::showConnection(QPoint p)
 {
     ui->originCbo->clear();
-    QString s(getFromPoint(p).code);
+    ui->destCbo->clear();
+
+    Airport origin = getFromPoint(p);
+    QString s(origin.code);
+    ListPointerT<Airport> allElse = airports->getAllBut(origin);
+
     ui->originCbo->addItem(s);
+    for(int i = 0; i < allElse.getCount(); i++)
+        ui->destCbo->addItem(allElse.get(i).code);
 }
 
 void AdminDialog::saveFileToXML()

@@ -27,8 +27,8 @@ public:
     QPoint getLocation() const {return location;}
 
     bool operator==(const Airport &other){
-        qDebug() << "Comparing" << (*this).getLocation() << "and" << other.getLocation();
-        return (*this).getLocation() == other.getLocation();
+        return (*this).getLocation() == other.getLocation()
+                || (*this).getCode() == other.getCode();
     }
 
     bool isWithinRange(Airport other, double range){
