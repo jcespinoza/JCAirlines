@@ -59,7 +59,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Code:</string>
+    <string>Codigo:</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -72,7 +72,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>City:</string>
+    <string>Ciudad:</string>
    </property>
   </widget>
  </widget>

@@ -19,9 +19,11 @@ signals:
     void doubleClicked(QPoint);
     void clickedEmpty(QPoint);
     void clickedExisting(QPoint);
+    void rightClickedValid(QPoint);
 
 public slots:
     void createPoint(QPoint);
+    void deleteGraphicsInvolved(QPoint p);
 
 protected:
     void paintEvent(QPaintEvent*);

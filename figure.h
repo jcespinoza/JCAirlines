@@ -11,6 +11,7 @@ class Figure: public QObject
 public:
     Figure();
     virtual void draw(QPainter*) = 0;
+    virtual bool isRelated(QPoint) = 0;
 };
 
 #endif // FIGURE_H

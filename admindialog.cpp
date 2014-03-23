@@ -33,6 +33,8 @@ void AdminDialog::doConnects()
     connect(gArea, SIGNAL(clickedEmpty(QPoint)), this, SLOT(requestInfo(QPoint)));
     connect(this, SIGNAL(pointApproved(QPoint)), gArea, SLOT(createPoint(QPoint)));
     connect(gArea, SIGNAL(clickedExisting(QPoint)), this, SLOT(showConnection(QPoint)));
+    connect(gArea, SIGNAL(rightClickedValid(QPoint)), this, SLOT(requestDelete(QPoint)));
+    connect(this, SIGNAL(deleteApproved(QPoint)), gArea, SLOT(deleteGraphicsInvolved(QPoint)));
     connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(saveFileToXML()));
 }
 
@@ -59,13 +61,21 @@ void AdminDialog::requestInfo(QPoint p)
     newOne.setLocation(p);
     qDebug() << "Creating Airport:" << newOne.getCity() << newOne.getCode() << newOne.getLocation();
     if(airports->vertexExists(newOne)){
-        QMessageBox::warning(this, "Error", "An airport with this information is already in the registry", QMessageBox::Ok);
+        QMessageBox::warning(this, "Error", "Ya se registro un aeropuerto con esa informacion", QMessageBox::Ok);
         return;
     }
-
     airports->addVertex(newOne);
-    airports->printVertexList();
     emit pointApproved(p);
+}
+
+void AdminDialog::requestDelete(QPoint p)
+{
+    Airport target = getFromPoint(p);
+    if(QMessageBox::question(this, "Borrar Aeropuerto", "Ha solicitado borrar un aeropuerto.\nTodas las conexiones con el seran borradas tambien. Esta seguro?")
+            == QMessageBox::Cancel)
+        return;
+    airports->removeVertex(target);
+    emit deleteApproved(p);
 }
 
 void AdminDialog::showConnection(QPoint p)

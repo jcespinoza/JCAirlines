@@ -30,9 +30,11 @@ private:
     QString xmlPath;
 signals:
     void pointApproved(QPoint);
+    void deleteApproved(QPoint);
 
 public slots:
     void requestInfo(QPoint);
+    void requestDelete(QPoint);
     void showConnection(QPoint);
     void saveFileToXML();
     void loadFromXML();

@@ -17,7 +17,6 @@ SOURCES += main.cpp\
     admindialog.cpp \
     graphicarea.cpp \
     figure.cpp \
-    pointfigure.cpp \
     newairportdialog.cpp
 
 HEADERS  += mwindow.h \
@@ -27,7 +26,8 @@ HEADERS  += mwindow.h \
     pointfigure.h \
     airport.h \
     newairportdialog.h \
-    ../GrafoTest/Grafo.h
+    ../GrafoTest/Grafo.h \
+    linefigure.h
 
 FORMS    += mwindow.ui \
     admindialog.ui \
