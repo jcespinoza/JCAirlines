@@ -6,7 +6,6 @@ MWindow::MWindow(QWidget *parent) :
     ui(new Ui::MWindow)
 {
     ui->setupUi(this);
-    admDialog = new AdminDialog(this);
 }
 
 MWindow::~MWindow()
@@ -16,5 +15,12 @@ MWindow::~MWindow()
 
 void MWindow::on_pushButton_clicked()
 {
-    admDialog->show();
+    AdminDialog admDialog(this);
+    admDialog.exec();
+}
+
+void MWindow::on_pushButton_2_clicked()
+{
+    ClientDialog cliDialog(this);
+    cliDialog.exec();
 }

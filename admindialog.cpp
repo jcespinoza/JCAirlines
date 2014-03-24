@@ -37,7 +37,6 @@ void AdminDialog::doConnects()
     connect(gArea, SIGNAL(rightClickedValid(QPoint)), this, SLOT(requestDelete(QPoint)));
     connect(this, SIGNAL(deleteApproved(QPoint)), gArea, SLOT(deleteGraphicsInvolved(QPoint)));
     connect(this, SIGNAL(addLine(QPoint,QPoint)), gArea, SLOT(createLine(QPoint,QPoint)));
-    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(saveFileToXML()));
 }
 
 Airport AdminDialog::getFromPoint(QPoint p)
@@ -58,6 +57,12 @@ Airport AdminDialog::getFromCode(QString st)
     if( t ) result = t->data;
 
     return result;
+}
+
+void AdminDialog::closeEvent(QCloseEvent *)
+{
+    saveFileToXML();
+    close();
 }
 
 void AdminDialog::requestInfo(QPoint p)

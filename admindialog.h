@@ -29,6 +29,8 @@ private:
     Airport getFromPoint(QPoint);
     Airport getFromCode(QString);
     QString xmlPath;
+    void closeEvent(QCloseEvent*);
+
 signals:
     void pointApproved(QPoint);
     void addLine(QPoint,QPoint);

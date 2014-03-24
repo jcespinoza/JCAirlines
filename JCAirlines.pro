@@ -16,7 +16,8 @@ SOURCES += main.cpp\
         mwindow.cpp \
     admindialog.cpp \
     graphicarea.cpp \
-    newairportdialog.cpp
+    newairportdialog.cpp \
+    clientdialog.cpp
 
 HEADERS  += mwindow.h \
     admindialog.h \
@@ -26,11 +27,13 @@ HEADERS  += mwindow.h \
     airport.h \
     newairportdialog.h \
     ../GrafoTest/Grafo.h \
-    linefigure.h
+    linefigure.h \
+    clientdialog.h
 
 FORMS    += mwindow.ui \
     admindialog.ui \
-    newairportdialog.ui
+    newairportdialog.ui \
+    clientdialog.ui
 
 RESOURCES += \
     resources.qrc

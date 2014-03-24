@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "admindialog.h"
+#include "clientdialog.h"
 
 namespace Ui {
 class MWindow;
@@ -19,9 +20,10 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MWindow *ui;
-    AdminDialog *admDialog;
 };
 
 #endif // MWINDOW_H
