@@ -40,6 +40,10 @@ void ClientDialog::on_pbCalculate_clicked()
     if(fromIndex == toIndex || !from || !dest)
         return;
     ListPointerT< Vertex<Airport>* > path = airports->getLowesCostPath(from, dest);
+    qDebug() << "Route to follow:";
+    for(int i = 0; i < path.getCount(); i++){
+        qDebug() << path.get(i)->data;
+    }
 }
 
 void ClientDialog::loadXml()
