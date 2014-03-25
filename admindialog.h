@@ -5,8 +5,6 @@
 #include "graphicarea.h"
 #include "airport.h"
 #include "../GrafoTest/Grafo.h"
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
 
 namespace Ui {
 class AdminDialog;

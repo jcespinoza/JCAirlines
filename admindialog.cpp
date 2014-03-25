@@ -27,7 +27,7 @@ AdminDialog::~AdminDialog()
 void AdminDialog::initializeGraphics()
 {
     //ui->grid->addWidget(gArea);
-    setToolTip("Mapa de Aeropuertos. Click para agregar uno.\nClick sobre uno para establecer una connexion.\nClick derecho sobre uno para borrarlo");
+    //setToolTip("Mapa de Aeropuertos. Click para agregar uno.\nClick sobre uno para establecer una connexion.\nClick derecho sobre uno para borrarlo");
 }
 
 void AdminDialog::doConnects()
@@ -197,8 +197,11 @@ void AdminDialog::loadFromXML()
         qDebug() << "Failed to Read the file";
         return;
     }else{
-        if(!document.setContent(&file))
+        if(!document.setContent(&file)){
             qDebug() << "Failed to load the document";
+            file.close();
+            return;
+        }
         file.close();
     }
 

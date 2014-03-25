@@ -26,7 +26,7 @@ void ClientDialog::initAndConnect()
     gArea = new GraphicArea(this);
     airports = new Graph<Airport>();
     gArea->setGeometry(ui->gridWidget->geometry());
-    setToolTip("Mapa de Aeropuertos.");
+    //setToolTip("Mapa de Aeropuertos.");
     loadXml();
     loadAirportsOnCombos();
 }
@@ -34,7 +34,12 @@ void ClientDialog::initAndConnect()
 
 void ClientDialog::on_pbCalculate_clicked()
 {
-
+    int fromIndex = ui->cboOrigin->currentIndex(), toIndex = ui->cboDestin->currentIndex();
+    Vertex<Airport>* from = airports->getVertex(fromIndex);
+    Vertex<Airport>* dest = airports->getVertex(toIndex);
+    if(fromIndex == toIndex || !from || !dest)
+        return;
+    ListPointerT< Vertex<Airport>* > path = airports->getLowesCostPath(from, dest);
 }
 
 void ClientDialog::loadXml()
@@ -45,8 +50,11 @@ void ClientDialog::loadXml()
         qDebug() << "Failed to Read the file";
         return;
     }else{
-        if(!document.setContent(&file))
+        if(!document.setContent(&file)){
             qDebug() << "Failed to load the document";
+            file.close();
+            return;
+        }
         file.close();
     }
 
@@ -96,4 +104,24 @@ void ClientDialog::loadAirportsOnCombos()
         ui->cboOrigin->addItem(city);
         ui->cboDestin->addItem(city);
     }
+}
+
+Airport ClientDialog::getFromPoint(QPoint p)
+{
+    Airport result;
+    result.setLocation(p);
+    Vertex<Airport>* t = airports->getVertex(result);
+    if( t ) result = t->data;
+
+    return result;
+}
+
+Airport ClientDialog::getFromCode(QString st)
+{
+    Airport result;
+    result.setCode(st);
+    Vertex<Airport>* t = airports->getVertex(result);
+    if( t ) result = t->data;
+
+    return result;
 }

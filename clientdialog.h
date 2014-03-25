@@ -32,6 +32,9 @@ private:
     void initAndConnect();
     void loadXml();
     void loadAirportsOnCombos();
+
+    Airport getFromPoint(QPoint);
+    Airport getFromCode(QString);
 };
 
 #endif // CLIENTDIALOG_H

@@ -1,15 +1,17 @@
 #ifndef FIGURE_H
 #define FIGURE_H
-#include <QObject>
+#include <QWidget>
 #include <QPainter>
 #include <QDebug>
 #include <math.h>
 
-class Figure: public QObject
+class Figure: public QWidget
 {
     Q_OBJECT
 public:
-    Figure(){}
+    Figure(){
+        setToolTip("I'm a figure");
+    }
     virtual void draw(QPainter*) = 0;
     virtual bool isRelated(QPoint) = 0;
     enum FigureType{POINT, LINE};

@@ -50,6 +50,7 @@ void GraphicArea::createPoint(QPoint p)
     PointFigure *point = new PointFigure();
     point->setGeometry(QRect(p.x()-16,p.y()-32, 32, 32));
     figures.append(point);
+    point->setParent(this);
     update();
 }
 
