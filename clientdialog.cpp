@@ -26,7 +26,15 @@ void ClientDialog::initAndConnect()
     gArea = new GraphicArea(this);
     airports = new Graph<Airport>();
     gArea->setGeometry(ui->gridWidget->geometry());
+    setToolTip("Mapa de Aeropuertos.");
     loadXml();
+    loadAirportsOnCombos();
+}
+
+
+void ClientDialog::on_pbCalculate_clicked()
+{
+
 }
 
 void ClientDialog::loadXml()
@@ -75,5 +83,17 @@ void ClientDialog::loadXml()
                     gArea->createLine(newOne.getLocation(), temp.getLocation());
             }
         }
+    }
+}
+
+void ClientDialog::loadAirportsOnCombos()
+{
+    ui->cboOrigin->clear();
+    ui->cboDestin->clear();
+    ListPointerT<Airport> elem = airports->getAllVertices();
+    for(int i = 0; i < elem.getCount(); i++){
+        QString city = elem.get(i).getCity();
+        ui->cboOrigin->addItem(city);
+        ui->cboDestin->addItem(city);
     }
 }

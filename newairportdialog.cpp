@@ -1,5 +1,6 @@
 #include "newairportdialog.h"
 #include "ui_newairportdialog.h"
+#include <QMessageBox>
 
 NewAirportDialog::NewAirportDialog(QWidget *parent) :
     QDialog(parent),
@@ -16,4 +17,12 @@ NewAirportDialog::NewAirportDialog(QWidget *parent) :
 NewAirportDialog::~NewAirportDialog()
 {
     delete ui;
+}
+
+void NewAirportDialog::on_buttonBox_accepted()
+{
+    if(ui->leCity->text().isEmpty() || ui->leCode->text().isEmpty()){
+        setResult(QDialog::Rejected);
+        QMessageBox::critical(this, "Datos Invalidos", "No se permite dejar ningun campo vacio.");
+    }
 }

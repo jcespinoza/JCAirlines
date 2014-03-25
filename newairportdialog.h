@@ -21,6 +21,9 @@ public slots:
     void setCode(QString co){code = co;}
     void setCity(QString ci){city = ci;}
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::NewAirportDialog *ui;
     QString code;

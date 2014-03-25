@@ -19,6 +19,9 @@ public:
     explicit ClientDialog(QWidget *parent = 0);
     ~ClientDialog();
 
+private slots:
+    void on_pbCalculate_clicked();
+
 private:
     Ui::ClientDialog *ui;
     Graph<Airport>* airports;
@@ -28,7 +31,7 @@ private:
 
     void initAndConnect();
     void loadXml();
-
+    void loadAirportsOnCombos();
 };
 
 #endif // CLIENTDIALOG_H

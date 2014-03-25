@@ -30,6 +30,7 @@ private:
     Airport getFromCode(QString);
     QString xmlPath;
     void closeEvent(QCloseEvent*);
+    bool modified;
 
 signals:
     void pointApproved(QPoint);

@@ -41,6 +41,9 @@
    <property name="inputMask">
     <string/>
    </property>
+   <property name="placeholderText">
+    <string>Ej. XX00</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="leCity">
    <property name="geometry">
@@ -50,6 +53,9 @@
      <width>113</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Ej. Los Angeles</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">

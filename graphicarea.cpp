@@ -3,7 +3,7 @@
 GraphicArea::GraphicArea(QWidget *parent) :
     QWidget(parent)
 {
-    setToolTip("Mapa de Aeropuertos. Click para agregar uno.\nClick sobre uno para establecer una connexion.\nClick derecho sobre uno para borrarlo");
+
 }
 
 PointFigure *GraphicArea::getClosest(QPoint p1)

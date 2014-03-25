@@ -14,6 +14,7 @@ AdminDialog::AdminDialog(QWidget *parent) :
     airports = new Graph<Airport>();
     gArea = new GraphicArea(this);
     gArea->setGeometry(ui->gridWidget->geometry());
+    initializeGraphics();
     doConnects();
     loadFromXML();
 }
@@ -25,7 +26,8 @@ AdminDialog::~AdminDialog()
 
 void AdminDialog::initializeGraphics()
 {
-    ui->grid->addWidget(gArea);
+    //ui->grid->addWidget(gArea);
+    setToolTip("Mapa de Aeropuertos. Click para agregar uno.\nClick sobre uno para establecer una connexion.\nClick derecho sobre uno para borrarlo");
 }
 
 void AdminDialog::doConnects()
@@ -81,6 +83,7 @@ void AdminDialog::requestInfo(QPoint p)
     }
     airports->addVertex(newOne);
     emit pointApproved(p);
+    modified = true;
 }
 
 void AdminDialog::requestDelete(QPoint p)
@@ -91,6 +94,7 @@ void AdminDialog::requestDelete(QPoint p)
         return;
     airports->removeVertex(target);
     emit deleteApproved(p);
+    modified = true;
 }
 
 void AdminDialog::showConnection(QPoint p)
@@ -135,6 +139,7 @@ void AdminDialog::on_pbStablish_clicked()
         emit addLine(origin.getLocation(), destination.getLocation());
         QMessageBox::information(this, "Completado", "Se creo la conexion exitosamente");
     }
+    modified = true;
     ui->originCbo->clear();
     ui->destCbo->clear();
     ui->lePrice->clear();
@@ -142,6 +147,8 @@ void AdminDialog::on_pbStablish_clicked()
 
 void AdminDialog::saveFileToXML()
 {
+    if(!modified)
+        return;
     QDomDocument document;
     QDomProcessingInstruction xmlHeader = document.createProcessingInstruction("xml","version=\"1.0\"");
     document.appendChild(xmlHeader);

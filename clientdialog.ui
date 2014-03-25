@@ -37,6 +37,65 @@
     </property>
    </layout>
   </widget>
+  <widget class="QPushButton" name="pbCalculate">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>200</y>
+     <width>131</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Calcular Costo</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>40</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Origen:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>93</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Destino:</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cboOrigin">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>60</y>
+     <width>151</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cboDestin">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>120</y>
+     <width>151</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
