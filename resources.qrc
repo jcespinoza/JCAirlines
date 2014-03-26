@@ -5,5 +5,7 @@
         <file>img/greenmarker.png</file>
         <file>img/googlemarker.png</file>
         <file>img/greenmap.png</file>
+        <file>img/bluemarker.png</file>
+        <file>img/airplane.png</file>
     </qresource>
 </RCC>

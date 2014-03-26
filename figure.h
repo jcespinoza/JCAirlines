@@ -10,12 +10,14 @@ class Figure: public QWidget
     Q_OBJECT
 public:
     Figure(){
-        setToolTip("I'm a figure");
     }
     virtual void draw(QPainter*) = 0;
     virtual bool isRelated(QPoint) = 0;
     enum FigureType{POINT, LINE};
     virtual FigureType figureType() = 0;
+public slots:
+    virtual void highlight(QPoint, QPoint) = 0;
+    virtual void resetState() = 0;
 
     static double distance(QPoint p1, QPoint p2){
         int x1 = p1.x();

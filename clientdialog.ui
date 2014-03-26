@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Usuario</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/graphics/img/airplane.png</normaloff>:/graphics/img/airplane.png</iconset>
   </property>
   <widget class="QWidget" name="gridWidget" native="true">
    <property name="geometry">
@@ -48,6 +52,9 @@
    </property>
    <property name="text">
     <string>Calcular Costo</string>
+   </property>
+   <property name="default">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -96,7 +103,42 @@
     </rect>
    </property>
   </widget>
+  <widget class="QLabel" name="lbResult">
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>250</y>
+     <width>191</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Lucida Sans</family>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <italic>true</italic>
+     <bold>false</bold>
+     <stylestrategy>PreferAntialias</stylestrategy>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(238, 238, 238, 174));
+border-radius:5px;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignHCenter|Qt::AlignTop</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

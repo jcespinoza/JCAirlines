@@ -7,7 +7,9 @@
 class LineFigure: public Figure
 {
 public:
-    LineFigure(){}
+    LineFigure(){
+        color = Qt::blue;
+    }
     int x(){return xi;}
     int y(){return yi;}
     QPoint start(){return QPoint(xi,yi);}
@@ -34,7 +36,7 @@ public:
         path.moveTo(start());
         path.cubicTo(start()+QPoint(5,5), start(), end());
 
-        QPen pen(Qt::blue);
+        QPen pen(color);
         pen.setWidth(3);
         pen.setCapStyle(Qt::RoundCap);
         painter->setPen(pen);
@@ -46,11 +48,11 @@ public:
     }
 
     bool isEnd(QPoint p){
-        return end() == p;
+        return end() == p || QPoint(dx+16,dy+32) == p;
     }
 
     bool isStart(QPoint p){
-        return start() == p;
+        return start() == p || QPoint(xi+16,yi+32) == p;
     }
 
     FigureType figureType(){
@@ -64,6 +66,18 @@ protected:
     int hi;
     int dx;
     int dy;
+    QColor color;
+
+
+public slots:
+    void resetState(){
+        color = Qt::blue;
+    }
+
+    void highlight(QPoint p,QPoint q){
+        if(isEnd(q) && isStart(p))
+            color = Qt::yellow;
+    }
 };
 
 #endif // LINEFIGURE_H

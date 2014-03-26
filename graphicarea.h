@@ -21,11 +21,15 @@ signals:
     void clickedEmpty(QPoint);
     void clickedExisting(QPoint);
     void rightClickedValid(QPoint);
+    void resetGraphics();
+    void highlightPoint(QPoint,QPoint);
+    void highlightEdge(QPoint,QPoint);
 
 public slots:
     void createPoint(QPoint);
     void deleteGraphicsInvolved(QPoint p);
     void createLine(QPoint,QPoint);
+    void resetGraphics(int);
 
 protected:
     void paintEvent(QPaintEvent*);

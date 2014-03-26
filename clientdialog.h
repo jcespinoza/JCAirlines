@@ -21,6 +21,9 @@ public:
 
 private slots:
     void on_pbCalculate_clicked();
+    void resetAll(int);
+signals:
+    void resetGraphics(int);
 
 private:
     Ui::ClientDialog *ui;
@@ -32,9 +35,8 @@ private:
     void initAndConnect();
     void loadXml();
     void loadAirportsOnCombos();
+    QString extractFullMessage(ListPointerT<Vertex<Airport>* >);
 
-    Airport getFromPoint(QPoint);
-    Airport getFromCode(QString);
 };
 
 #endif // CLIENTDIALOG_H

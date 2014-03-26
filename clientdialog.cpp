@@ -29,21 +29,35 @@ void ClientDialog::initAndConnect()
     //setToolTip("Mapa de Aeropuertos.");
     loadXml();
     loadAirportsOnCombos();
+    connect(ui->cboOrigin, SIGNAL(currentIndexChanged(int)), gArea, SLOT(resetGraphics(int)));
+    connect(ui->cboDestin, SIGNAL(currentIndexChanged(int)), gArea, SLOT(resetGraphics(int)));
+    connect(this, SIGNAL(resetGraphics(int)), gArea, SLOT(resetGraphics(int)));
 }
 
 
 void ClientDialog::on_pbCalculate_clicked()
 {
+    emit resetGraphics(0);
     int fromIndex = ui->cboOrigin->currentIndex(), toIndex = ui->cboDestin->currentIndex();
     Vertex<Airport>* from = airports->getVertex(fromIndex);
     Vertex<Airport>* dest = airports->getVertex(toIndex);
-    if(fromIndex == toIndex || !from || !dest)
-        return;
-    ListPointerT< Vertex<Airport>* > path = airports->getLowesCostPath(from, dest);
-    qDebug() << "Route to follow:";
-    for(int i = 0; i < path.getCount(); i++){
-        qDebug() << path.get(i)->data;
+    QString mes;
+    if(fromIndex == toIndex || !from || !dest){
+        mes = QString("El costo para llegar a este punto es de 0.0, es mas ni siquiera tiene que moverse. ;)");
+    }else{
+        ListPointerT< Vertex<Airport>* > path = airports->getLowesCostPath(from, dest);
+        if(path.getCount() > 0){
+            mes = extractFullMessage(path);
+        }else
+            mes = QString("No hay manera de llegar a " + dest->data.getCity() + " partiendo de " + from->data.getCity());
     }
+    ui->lbResult->setText(mes);
+}
+
+void ClientDialog::resetAll(int)
+{
+    ui->lbResult->setText("");
+    emit resetGraphics(0);
 }
 
 void ClientDialog::loadXml()
@@ -110,22 +124,26 @@ void ClientDialog::loadAirportsOnCombos()
     }
 }
 
-Airport ClientDialog::getFromPoint(QPoint p)
+QString ClientDialog::extractFullMessage(ListPointerT<Vertex<Airport> *> path)
 {
-    Airport result;
-    result.setLocation(p);
-    Vertex<Airport>* t = airports->getVertex(result);
-    if( t ) result = t->data;
-
-    return result;
-}
-
-Airport ClientDialog::getFromCode(QString st)
-{
-    Airport result;
-    result.setCode(st);
-    Vertex<Airport>* t = airports->getVertex(result);
-    if( t ) result = t->data;
-
+    double totalCost = 0;
+    QString result("El costo total por este viaje es de $");
+    QString route(" siguiendo la ruta:\n");
+    for(int i = 0; i < path.getCount(); i++){
+        Vertex<Airport>* current = path.get(i);
+        gArea->highlightPoint(current->data.getLocation(),QPoint());
+        Vertex<Airport>* next = path.get(i+1);
+        if(next){
+            Edge<Airport>* edge = current->getEdge(next);
+            gArea->highlightEdge(current->data.getLocation(), next->data.getLocation());
+            if(edge)
+                totalCost += edge->value;
+        }
+        if(current)
+            route += (current->data.getCity()) +  ((i < path.getCount()-1)?" - ":".");
+    }
+    result += QString::number(totalCost);
+    result += route;
+    gArea->update();
     return result;
 }

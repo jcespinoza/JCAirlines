@@ -48,6 +48,8 @@ void GraphicArea::mousePressEvent(QMouseEvent *e)
 void GraphicArea::createPoint(QPoint p)
 {
     PointFigure *point = new PointFigure();
+    connect(this, SIGNAL(highlightPoint(QPoint,QPoint)), point, SLOT(highlight(QPoint,QPoint)));
+    connect(this, SIGNAL(resetGraphics()), point, SLOT(resetState()));
     point->setGeometry(QRect(p.x()-16,p.y()-32, 32, 32));
     figures.append(point);
     point->setParent(this);
@@ -57,6 +59,8 @@ void GraphicArea::createPoint(QPoint p)
 void GraphicArea::createLine(QPoint st, QPoint en)
 {
     LineFigure* line = new LineFigure();
+    connect(this, SIGNAL(resetGraphics()), line, SLOT(resetState()));
+    connect(this, SIGNAL(highlightEdge(QPoint,QPoint)),line, SLOT(highlight(QPoint,QPoint)));
     line->setStartX(st.x());
     line->setStartY(st.y());
     line->setEndX(en.x());
@@ -64,6 +68,12 @@ void GraphicArea::createLine(QPoint st, QPoint en)
     line->setGeometry(QRect(line->start(),line->end()));
     figures.prepend(line);
     update();
+}
+
+void GraphicArea::resetGraphics(int)
+{
+    update();
+    emit resetGraphics();
 }
 
 void GraphicArea::deleteGraphicsInvolved(QPoint p)

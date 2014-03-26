@@ -5,9 +5,11 @@
 class PointFigure: public Figure
 {
 public:
-    PointFigure(){}
+    PointFigure(){
+        imgPath = ":/graphics/img/greenmarker.png";
+    }
     void draw(QPainter *painter){
-        QPixmap image(":/graphics/img/greenmarker.png");
+        QPixmap image(imgPath);
         painter->drawPixmap(x(), y(), width(), height(), image);
     }
 
@@ -36,12 +38,22 @@ public:
         wi = t.width();
         hi = t.height();
     }
+public slots:
+    void resetState(){
+        imgPath = ":/graphics/img/greenmarker.png";
+    }
+
+    void highlight(QPoint st, QPoint){
+        if(isRelated(st))
+            imgPath = ":/graphics/img/bluemarker.png";
+    }
 
 protected:
     int xi;
     int yi;
     int wi;
     int hi;
+    QString imgPath;
 };
 
 #endif // POINTFIGURE_H
